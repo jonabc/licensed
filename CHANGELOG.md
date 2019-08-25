@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## 2.3.3 - 2019-08-25
+
+### Changed
+- releases action
+
+### Added
+- actions!
+
+### Fixed
+- bundler 1.15 support
+- ghc package db fix
+
 ## 2.3.1 - 2019-08-20
 
 ### Changed
