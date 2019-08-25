@@ -1,84 +1,20 @@
-name: Release
+name: Create release
 
-on: [release]
+on: create
 
 jobs:
-  publish:
-    name: Build + Publish Gem
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@master
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        version: 2.6.x
-
-    - name: Publish to GPR
-      run: |
-        mkdir -p $HOME/.gem
-        touch $HOME/.gem/credentials
-        chmod 0600 $HOME/.gem/credentials
-        printf -- "---\n:github: Bearer ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-        gem build *.gemspec
-        gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
-      env:
-        GEM_HOST_API_KEY: ${{secrets.GPR_AUTH_TOKEN}}
-        OWNER: github
-
-    - name: Publish to RubyGems
-      run: |
-        mkdir -p $HOME/.gem
-        touch $HOME/.gem/credentials
-        chmod 0600 $HOME/.gem/credentials
-        printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-        gem build *.gemspec
-        gem push *.gem
-      env:
-        GEM_HOST_API_KEY: ${{secrets.RUBYGEMS_AUTH_TOKEN}}
-  
-  package_linux:
-    name: Build + Publish Linux Standalone
+  tag_filter:
     runs_on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@master
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        version: 2.6.x
-    
-    - name: Build package
-      run: script/packages/linux
-      env:
-        VERSION: ${{github.ref}}
-      
-    - name: Upload package
-      uses: JasonEtco/upload-to-release@master
-      with:
-        args: pkg/${{github.ref}}/licensed-${{github.ref}}-linux-x64.tar.gz application/gzip
-      env:
-        GITHUB_TOKEN: ${{secrets.API_AUTH_TOKEN}}
+    - uses: actions/bin/filter@master
+      args: 'tag'
 
-  package_mac:
-    name: Build + Publish Mac Standalone
-    runs_on: macOS-latest
-    
+  create_release:
+    runs_on: ubuntu-latest
+    needs: tag_filter
     steps:
-    - uses: actions/checkout@master
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        version: 2.6.x
-        
-    - name: Build package
-      run: script/packages/mac
+    - uses: Roang-zero1/github-create-release-action@v1.02
       env:
-        VERSION: ${{github.ref}}
-    
-    - name: Upload package
-      uses: JasonEtco/upload-to-release@master
-      with:
-        args: pkg/${{github.ref}}/licensed-${{github.ref}}-darwin-x64.tar.gz application/gzip
-      env:
-        GITHUB_TOKEN: ${{secrets.API_AUTH_TOKEN}}
+        GITHUB_TOKEN: ${{ secret.API_AUTH_TOKEN }}
+        VERSION_REGEX: '^[[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+'
+        CHANGELOG_FILE: CHANGELOG.md
