@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: Roang-zero1/github-create-release-action@v1.02
       env:
-        GITHUB_TOKEN: ${{ secret.API_AUTH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
         VERSION_REGEX: '^[[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+'
         CHANGELOG_FILE: CHANGELOG.md
