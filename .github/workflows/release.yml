@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: tag_filter
     steps:
-    - uses: Roang-zero1/github-create-release-action@v1.02
+    - uses: Roang-zero1/github-create-release-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
         VERSION_REGEX: '^[[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+'

@@ -6,16 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## 2.3.9 - 2019-08-26
+## 2.3.10 - 2019-08-26
 
 ### Changed
-- 2.3.9
+- 2.3.10
 
 ### Added
-- 2.3.9
+- 2.3.10
 
 ### Fixed
-- 2.3.9
+- 2.3.10
 
 ## 2.3.4 - 2019-08-25
 
