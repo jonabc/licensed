@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/bin/filter@master
-      args: 'tag'
+      with:
+        args: 'tag'
 
   create_release:
     runs-on: ubuntu-latest
