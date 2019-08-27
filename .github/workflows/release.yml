@@ -34,7 +34,7 @@ jobs:
         version: 2.6.x
 
     - name: Build package
-      run: script/package linux
+      run: script/packages/linux
       env:
         VERSION: ${{github.event.ref}}
 
@@ -58,7 +58,7 @@ jobs:
         version: 2.6.x
 
     - name: Build package
-      run: script/package mac
+      run: script/packages/mac
       env:
         VERSION: ${{github.event.ref}}
 
