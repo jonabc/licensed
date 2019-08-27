@@ -37,7 +37,8 @@ jobs:
       run: gem install bundler
 
     - name: Build package
-      run: script/packages/linux
+      run: script/package linux
+        shell: bash -eo pipefail {0}
       env:
         VERSION: ${{github.event.ref}}
 
@@ -64,7 +65,7 @@ jobs:
       run: gem install bundler
 
     - name: Build package
-      run: script/packages/mac
+      run: script/package mac
       env:
         VERSION: ${{github.event.ref}}
 
