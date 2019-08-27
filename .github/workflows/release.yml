@@ -71,7 +71,10 @@ jobs:
     steps:
     - uses: actions/download-artifact@master
       with:
-        name: [licensed-${{github.event.ref}}-linux-x64.tar.gz, licensed-${{github.event.ref}}-darwin-x64.tar.gz]
+        name: licensed-${{github.event.ref}}-linux-x64.tar.gz
+    - uses: actions/download-artifact@master
+      with:
+        name: licensed-${{github.event.ref}}-darwin-x64.tar.gz
 
     - uses: Roang-zero1/github-upload-release-artifacts-action@v2.0.0
       with:
